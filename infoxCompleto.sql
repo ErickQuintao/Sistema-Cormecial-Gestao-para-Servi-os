@@ -70,3 +70,13 @@ use dbinfox;
 select * from tbusuarios;
 insert into tbusuarios(iduser,usuario,fone,login,senha)
 values(4,'Leando Ramos','9999-9999','leandro','123');
+
+use dbinfox;
+ describe tbusuarios;
+ select * from tbusuarios;
+ -- a linha abaixo adicona um campo a tabela
+ alter table tbusuarios add column perfil varchar(20) not null;
+ -- a linha abaixo remove um campo de uma tabela
+ alter table tbusarios drop column perfil;
+ update tbusuarios set perfil='admin' where iduser=2;
+  update tbusuarios set perfil='admin' where iduser=1;

@@ -7,8 +7,6 @@ package br.com.infox.telas;
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
 import java.awt.HeadlessException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -35,10 +33,21 @@ public class TelaLogin extends javax.swing.JFrame {
             rs = pst.executeQuery();
             //se existir usuario e senha correspondente
             if(rs.next()){
-                TelaPrincipal principal = new TelaPrincipal();
+                // alinha abaixo obtem o conteudo do campo perfil
+                String perfil = rs.getString(6);
+//                System.out.println(perfil);
+               
+                 TelaPrincipal principal = new TelaPrincipal();
+                 if(perfil.equals("admin")){
+                     TelaPrincipal.MenCadUsu.setEnabled(true);
+                      TelaPrincipal.MenRel.setEnabled(true);
+                 }
                 principal.setVisible(true);
                 this.dispose();
+                //pega o nome do usario logado
+                TelaPrincipal.lblUsuario.setText(rs.getString(2));
                 conexao.close();
+                
             }else{
                 JOptionPane.showMessageDialog(null, "usuario e/ou senha inválido(s)");
                 System.out.println("teste");
@@ -47,7 +56,7 @@ public class TelaLogin extends javax.swing.JFrame {
         }
         catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
-                System.out.println(e + "oii");
+               
                 }
         
     }
@@ -118,7 +127,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogin)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59))))
         );
         layout.setVerticalGroup(
