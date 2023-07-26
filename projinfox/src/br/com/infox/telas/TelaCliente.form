@@ -62,7 +62,7 @@
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="txtCliFone" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtCliEnderreco" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtCliEndereco" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtCliEmail" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtCliNome" alignment="0" min="-2" pref="351" max="-2" attributes="0"/>
                       </Group>
@@ -122,7 +122,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCliEnderreco" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCliEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -205,9 +205,9 @@
         <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCliEnderreco">
+    <Component class="javax.swing.JTextField" name="txtCliEndereco">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCliEnderrecoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCliEnderecoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

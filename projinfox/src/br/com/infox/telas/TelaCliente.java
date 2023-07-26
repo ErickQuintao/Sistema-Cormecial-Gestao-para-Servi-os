@@ -8,15 +8,53 @@ package br.com.infox.telas;
  *
  * @author erick
  */
+import java.sql.*;
+import br.com.infox.dal.ModuloConexao;
+import javax.swing.JOptionPane;
 public class TelaCliente extends javax.swing.JInternalFrame {
+Connection conexao = null;
+PreparedStatement pst = null;
+ResultSet rs = null;
 
-    /**
-     * Creates new form TelaCliente
-     */
     public TelaCliente() {
         initComponents();
+        conexao = ModuloConexao.connector();
     }
+        //metodo para adicionar Clientes
+    private void adicionar() {
+        String sql = "insert into tbclientes(nomecli,endcli,fonecli,emailcli) values(?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCliNome.getText());
+            pst.setString(2, txtCliEndereco.getText());
+            pst.setString(3, txtCliFone.getText());
+            pst.setString(4, txtCliEmail.getText());
 
+            //validação dos campos obrigatórios
+            if (txtCliNome.getText().isEmpty() || txtCliFone.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
+            } else {
+
+                //a linha abaixo atualiza a tabela cliente com os dados do formulário
+                // a estrutura abaixo e usada para confirmar a inserção dos dados na tabela
+                int adicionado = pst.executeUpdate();
+                // a linha serve como apoio do entendimento da lógica
+                //System.out.println(adicionado);
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso");
+                    //as linhas abaixo "limpam" os campos 
+               
+                    txtCliNome.setText(null);
+                    txtCliFone.setText(null);
+                    txtCliEndereco.setText(null);
+                    txtCliEmail.setText(null);
+                   
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +74,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         txtCliFone = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtCliEnderreco = new javax.swing.JTextField();
+        txtCliEndereco = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtCliEmail = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -86,9 +124,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Endereço");
 
-        txtCliEnderreco.addActionListener(new java.awt.event.ActionListener() {
+        txtCliEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCliEnderrecoActionPerformed(evt);
+                txtCliEnderecoActionPerformed(evt);
             }
         });
 
@@ -133,7 +171,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtCliFone, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCliEnderreco, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCliEndereco, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCliEmail, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCliNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -179,7 +217,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtCliEnderreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCliEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCliEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,12 +237,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCliPesquisarActionPerformed
 
-    private void txtCliEnderrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCliEnderrecoActionPerformed
+    private void txtCliEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCliEnderecoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCliEnderrecoActionPerformed
+    }//GEN-LAST:event_txtCliEnderecoActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        // chamando o metodo adicionar clientes
+        adicionar();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
 
@@ -223,7 +262,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCliEmail;
-    private javax.swing.JTextField txtCliEnderreco;
+    private javax.swing.JTextField txtCliEndereco;
     private javax.swing.JTextField txtCliFone;
     private javax.swing.JTextField txtCliNome;
     private javax.swing.JTextField txtCliPesquisar;
